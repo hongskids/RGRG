@@ -36,7 +36,7 @@ class crawl_item(Base):
 class site(Base):
     __tablename__ = 'site'
 
-    site_it = Column(Integer, primary_key=True)
+    site_id = Column(Integer, primary_key=True)
     name = Column(String(20))
     url = Column(String(100))
 
@@ -54,6 +54,8 @@ class content(Base):
     files = Column(Text(4294000000)) #Input Type: JSON Type
     post_content = Column(Text(4294000000))
 
-    def __init__(self, name, url):
-        self.name = name
-        self.url = url
+    def __init__(self, crawl_item_id, post_content, image = None, files = None):
+        self.crawl_item_id = crawl_item_id
+        self.post_content = post_content
+        self.image = image
+        self.files = files
