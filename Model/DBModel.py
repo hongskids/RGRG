@@ -14,7 +14,7 @@ class crawl_item(Base):
     crawl_id = Column(Integer, primary_key=True)
     site_id = Column(Integer)
     url = Column(String(100))
-    title = Column(String(20))
+    title = Column(String(100))
     attribute = Column(Text(4294000000)) #LongText Type
     views = Column(Integer)
     reg_date = Column(Date)
