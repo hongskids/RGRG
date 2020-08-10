@@ -51,11 +51,9 @@ class content(Base):
     content_id = Column(Integer, primary_key=True)
     crawl_item_id = Column(Integer)
     image = Column(String(100))
-    files = Column(Text(4294000000)) #Input Type: JSON Type
     post_content = Column(Text(4294000000))
 
-    def __init__(self, crawl_item_id, post_content, image = None, files = None):
+    def __init__(self, crawl_item_id, post_content, image = None):
         self.crawl_item_id = crawl_item_id
         self.post_content = post_content
         self.image = image
-        self.files = files
