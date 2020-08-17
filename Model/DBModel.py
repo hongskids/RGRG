@@ -13,7 +13,7 @@ class crawl_item(Base):
 
     crawl_id = Column(Integer, primary_key=True)
     site_id = Column(Integer)
-    url = Column(String(100))
+    url = Column(String(500))
     title = Column(String(100))
     attribute = Column(Text(4294000000)) #LongText Type
     views = Column(Integer)
@@ -22,16 +22,16 @@ class crawl_item(Base):
     crawl_date = Column(Date)
     state = Column(Integer)
 
-    def __init__(self, site_id, url, title, state, views=0, attribute=None, deadline=None, crawl_date=None):
+    def __init__(self, site_id, url, title, state, views=0, reg_date = None, deadline=None, attribute=None):
         self.site_id = site_id
         self.url = url
         self.title = title
         self.attribute = attribute
         self.views = views
         self.deadline = deadline
-        self.crawl_date = crawl_date
+        self.crawl_date = now
         self.state = state
-        self.reg_date = now  #insert current date
+        self.reg_date = reg_date  #insert current date
 
 
 #Table 'site'
