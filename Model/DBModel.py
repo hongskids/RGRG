@@ -20,8 +20,9 @@ class crawl_item(Base):
     reg_date = Column(Date)
     deadline = Column(Date)
     crawl_date = Column(Date)
+    state = Column(Integer)
 
-    def __init__(self, site_id, url, title, views, attribute=None, deadline=None, crawl_date=None):
+    def __init__(self, site_id, url, title, views, state, attribute=None, deadline=None, crawl_date=None):
         self.site_id = site_id
         self.url = url
         self.title = title
@@ -29,6 +30,7 @@ class crawl_item(Base):
         self.views = views
         self.deadline = deadline
         self.crawl_date = crawl_date
+        self.state = state
         self.reg_date = now  #insert current date
 
 
