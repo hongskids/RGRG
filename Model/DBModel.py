@@ -22,7 +22,7 @@ class crawl_item(Base):
     crawl_date = Column(Date)
     state = Column(Integer)
 
-    def __init__(self, site_id, url, title, views, state, attribute=None, deadline=None, crawl_date=None):
+    def __init__(self, site_id, url, title, state, views=0, attribute=None, deadline=None, crawl_date=None):
         self.site_id = site_id
         self.url = url
         self.title = title
