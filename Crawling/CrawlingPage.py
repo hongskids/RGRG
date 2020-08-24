@@ -23,7 +23,7 @@ options.add_argument('--disable-gpu')
 now = datetime.now() #get current datetime(format: YYYY-MM-DD TIME)
 
 #SetDBSet
-DB = create_engine('mysql+mysqldb://rgrg:1q2w3e4r!@db-4g03t.cdb.ntruss.com/site?charset=utf8', echo=True)
+DB = create_engine('mysql+mysqldb://root:hongskids1!@127.0.0.1/site?charset=utf8', echo=True)
 Base = declarative_base()
 Base.metadata.create_all(DB)
 
@@ -42,6 +42,10 @@ def getMainPage(soup):
     state = 1
 
     i = 1
+
+    if not datas: #빈 페이지일 경우, return
+        return -1
+
     for data in datas:
         title, site, reg_date, deadline, state
         # print(i, ": ", data.contents)
@@ -60,7 +64,7 @@ def getMainPage(soup):
             if(data.find('a').text != '진행중'): #진행중이 아닐 시, return
                 state = 0
                 break
-                return
+                return 0
             else:
                 contentUrl = mainUrl + data.find('a')['href']
                 site_id = findSiteID('복지로')
@@ -89,7 +93,6 @@ def getContent(crawl_item_id, contentUrl):
                 if j != '\n':
                     content = content + j.text.strip() + "\n"
 
-    # print(content)
     insertContentDB(crawl_item_id, content)
     postDriver.close()
 
@@ -124,13 +127,18 @@ def findSiteID(site):
             return id
 
 if __name__ == '__main__':
-    for pageNo in range(1, 10):
+    pageNo = 1
+    while(1):
         url = "http://www.bokjiro.go.kr/nwel/helpus/welsha/selectWelShaInfoBbrdMngList.do?searchCondition=&searchKeyword=&srchDuration=&stDate=&endDate=&pageUnit=10&endSvrEsc=0&intClIdStr=&orderCol=MODDATE&orderBy=DESC&recordCountPerPage=10&viewEndService=&pageIndex=" + str(pageNo)
         driver = webdriver.Chrome(executable_path=r'/usr/bin/chromedriver', chrome_options=options)
         driver.get(url)
         html = driver.page_source
         soup = BeautifulSoup(html, "html.parser")
-        getMainPage(soup)
+        result = getMainPage(soup)
         driver.close()
+        pageNo += 1 #pagenation 증가
+        if result == -1: #빈페이지 일 경우, 반복문 종료
+            break
+
 
         #contents > div.listTbl > table > tbody
