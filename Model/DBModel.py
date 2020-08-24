@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer, String, Date, Text
 from sqlalchemy import create_engine
 
 now = datetime.now() #get current datetime(format: YYYY-MM-DD TIME)
-DB = create_engine('mysql+mysqldb://rgrg:1q2w3e4r!@db-4g03t.cdb.ntruss.com/site?charset=utf8', echo=True)
+DB = create_engine('mysql+mysqldb://root:hongskids1!@127.0.0.1/site?charset=utf8', echo=True)
 Base = declarative_base()
 
 #Table 'crawl_item'
