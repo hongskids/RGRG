@@ -105,13 +105,13 @@ def insertCrawlItemDB(site_id, contentUrl, title, reg_date, deadline, state):
             session.query(DBModel.crawl_item).filter(DBModel.crawl_item.url == contentUrl).update({'state': state});
             session.commit()
             return 1
+    else:
+        data = DBModel.crawl_item(site_id, contentUrl, title, state, reg_date=reg_date, deadline=deadline)  # 존재하지 않는 url일 경우 insert
 
-    data = DBModel.crawl_item(site_id, contentUrl, title, state, reg_date=reg_date, deadline=deadline)  # 존재하지 않는 url일 경우 insert
+        session.add(data) #Insert crawl_item DB
+        session.commit()
 
-    session.add(data) #Insert crawl_item DB
-    session.commit()
-
-    return data.crawl_id
+        return data.crawl_id
 
 def insertContentDB(crawl_item_id, content):
     #insert into content table
