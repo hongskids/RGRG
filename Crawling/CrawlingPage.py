@@ -1,14 +1,15 @@
+# -*- coding: utf-8 -*-
 '''복지로 Page Crawling'''
-import requests
 from bs4 import BeautifulSoup
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import sys
 import Model.DBModel as DBModel
+sys.path.append("/root/RGRG")
 
 mainUrl = 'http://www.bokjiro.go.kr'
 
@@ -48,7 +49,6 @@ def getMainPage(soup):
 
     for data in datas:
         title, site, reg_date, deadline, state
-        # print(i, ": ", data.contents)
         if i == 2: #공지사항 제목
             title = data.text
 
@@ -126,19 +126,19 @@ def findSiteID(site):
         if (site == value):
             return id
 
-if __name__ == '__main__':
-    pageNo = 1
-    while(1):
-        url = "http://www.bokjiro.go.kr/nwel/helpus/welsha/selectWelShaInfoBbrdMngList.do?searchCondition=&searchKeyword=&srchDuration=&stDate=&endDate=&pageUnit=10&endSvrEsc=0&intClIdStr=&orderCol=MODDATE&orderBy=DESC&recordCountPerPage=10&viewEndService=&pageIndex=" + str(pageNo)
-        driver = webdriver.Chrome(executable_path=r'/usr/bin/chromedriver', chrome_options=options)
-        driver.get(url)
-        html = driver.page_source
-        soup = BeautifulSoup(html, "html.parser")
-        result = getMainPage(soup)
-        driver.close()
-        pageNo += 1 #pagenation 증가
-        if result == -1: #빈페이지 일 경우, 반복문 종료
-            break
+
+pageNo = 1
+while(1):
+    url = "http://www.bokjiro.go.kr/nwel/helpus/welsha/selectWelShaInfoBbrdMngList.do?searchCondition=&searchKeyword=&srchDuration=&stDate=&endDate=&pageUnit=10&endSvrEsc=0&intClIdStr=&orderCol=MODDATE&orderBy=DESC&recordCountPerPage=10&viewEndService=&pageIndex=" + str(pageNo)
+    driver = webdriver.Chrome(executable_path=r'/usr/bin/chromedriver', chrome_options=options)
+    driver.get(url)
+    html = driver.page_source
+    soup = BeautifulSoup(html, "html.parser")
+    result = getMainPage(soup)
+    driver.close()
+    pageNo += 1 #pagenation 증가
+    if result == -1: #빈페이지 일 경우, 반복문 종료
+        break
 
 
         #contents > div.listTbl > table > tbody
