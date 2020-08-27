@@ -8,8 +8,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import sys
-import Model.DBModel as DBModel
 sys.path.append("/root/RGRG")
+import Model.DBModel as DBModel
+
 
 mainUrl = 'http://www.bokjiro.go.kr'
 
