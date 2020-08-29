@@ -12,7 +12,7 @@ sys.path.append("/root/RGRG")
 import Model.DBModel as DBModel
 
 
-mainUrl = 'http://www.bokjiro.go.kr'
+mainUrl = 'http://www.bokjiro.go.kr' #main url
 
 #Set ChromeDriver Option
 options = Options()
